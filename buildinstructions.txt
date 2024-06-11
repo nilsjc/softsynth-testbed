@@ -1,0 +1,9 @@
+How to build this project with mingw32 and cmake on Windows.
+
+step 1: create build folder
+
+step 2: cd build
+
+step 3: cmake -S .. -B . -G "MinGW Makefiles"
+
+step 4: mingw32-make.exe
