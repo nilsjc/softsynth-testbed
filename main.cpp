@@ -16,8 +16,8 @@ paTestData;
 //PlateR::Reverb* reverb = new PlateR::Reverb();
 AudioDelay::Adelay* aDelay = new AudioDelay::Adelay(16384, SAMPLE_RATE);
 float modValue = 0.0;
-float tempo = 0.008;
-float mRange = 30;
+float tempo = 0.002;
+float mRange = 20;
 int modDir = 1;
 static paTestData data;
 typedef float SAMPLE;
@@ -95,7 +95,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
 int main()
 {
     aDelay->Time(350);
-    std::cout << "Welcome to the reverb\n";
+    std::cout << "Welcome to the delay\n";
     PaError error;
     PaStream *stream;
     error = Pa_Initialize();

@@ -6,7 +6,7 @@ namespace AudioDelay
             Adelay(int dTime, int sample_freq):
                 kSampleFreq(sample_freq),
                 delaySize(dTime),
-                Feedback(0.5),
+                Feedback(0.7),
                 ringMemory(new float[dTime]){};
 
             void Input(float audioIn);
