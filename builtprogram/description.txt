@@ -1,2 +1,3 @@
 all programs built in windows with mingw32
 reverb.exe - a real time reverb. To prevent analog audio feedback, use your headset.
+audiodelay.exe - real time modulated audio delay
