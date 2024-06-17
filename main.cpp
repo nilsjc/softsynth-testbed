@@ -2,6 +2,7 @@
 #include <portaudio.h>
 #include <math.h>
 #include "PlateReverb.h"
+#include "Adelay.h"
 #define PI 3.14159265
 #define NUM_SECONDS   (4)
 #define SAMPLE_RATE   (44100)
@@ -12,7 +13,12 @@ typedef struct
     float right_phase;
 }
 paTestData;
-PlateR::Reverb* reverb = new PlateR::Reverb();
+//PlateR::Reverb* reverb = new PlateR::Reverb();
+AudioDelay::Adelay* aDelay = new AudioDelay::Adelay(16384, SAMPLE_RATE);
+float modValue = 0.0;
+float tempo = 0.008;
+float mRange = 30;
+int modDir = 1;
 static paTestData data;
 typedef float SAMPLE;
 
@@ -39,11 +45,11 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
     unsigned int i;
     //(void) inputBuffer; /* Prevent unused variable warning. */
     const SAMPLE *in = (const SAMPLE*)inputBuffer;
+
     if( inputBuffer == NULL )
     {
         *out++ = 0;  /* left */
         *out++ = 0;  /* right */
-
     }
     else
     {
@@ -51,15 +57,35 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
         {
             SAMPLE sample = *in++; /* MONO input */
 
-            // reverb input
-            reverb->Input(sample);
-            // clock reverb memory 1
-            reverb->Tick();
-            // clock reverb memory 2
-            reverb->ModTick();
+
+            // // Reverb related
+
+            // // reverb input
+            // reverb->Input(sample);
+            // // clock reverb memory 1
+            // reverb->Tick();
+            // // clock reverb memory 2
+            // reverb->ModTick();
             
-            *out++ = (reverb->ResultL);  /* left */
-            *out++ = (reverb->ResultR);  /* right */
+            // *out++ = (reverb->ResultL);  /* left */
+            // *out++ = (reverb->ResultR);  /* right */
+            if(modDir)
+            {
+                modValue += tempo; 
+            }else
+            {
+                modValue -= tempo;
+            }
+
+            if(modValue<-mRange)modDir = 1;
+            if(modValue>mRange)modDir = 0;
+
+            aDelay->Time(150+modValue);
+
+            aDelay->Input(sample);
+
+            *out++ = (aDelay->Result);  /* left */
+            *out++ = (aDelay->Result);  /* right */
         }
     }
     
@@ -68,6 +94,7 @@ static int patestCallback( const void *inputBuffer, void *outputBuffer,
 
 int main()
 {
+    aDelay->Time(350);
     std::cout << "Welcome to the reverb\n";
     PaError error;
     PaStream *stream;
@@ -79,17 +106,17 @@ int main()
     }
     
     /* Get devices */
-    std::cout << "List all devices\n";
-    const PaDeviceInfo* info;
-    auto ndev = Pa_GetDeviceCount();
-    for(int i=0; i<ndev; i++)
-    {
-        info = Pa_GetDeviceInfo((PaDeviceIndex) i);
-        if(info->maxOutputChannels > 0)std::cout << "Output device: ";
-        if(info->maxInputChannels > 0)std::cout << "Input device: ";
-        printf("%d: %s\n", i, info->name);
+    // std::cout << "List all devices\n";
+    // const PaDeviceInfo* info;
+    // auto ndev = Pa_GetDeviceCount();
+    // for(int i=0; i<ndev; i++)
+    // {
+    //     info = Pa_GetDeviceInfo((PaDeviceIndex) i);
+    //     if(info->maxOutputChannels > 0)std::cout << "Output device: ";
+    //     if(info->maxInputChannels > 0)std::cout << "Input device: ";
+    //     printf("%d: %s\n", i, info->name);
 
-    }
+    // }
     /* Open an audio I/O stream. */
     error = Pa_OpenDefaultStream( &stream,
                                 1,          /* no input channels */
@@ -119,7 +146,7 @@ int main()
 
     //don´t forget
     std::cout << "Delete reverb" << "\n";
-    delete reverb;
+    delete aDelay;
 
 error:
     if(error != paNoError)

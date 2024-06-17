@@ -8,6 +8,8 @@ include_directories(synthmodules)
 
 add_executable(${PROJECT_NAME} main.cpp 
                         synthmodules/PlateReverb.h
-                        synthmodules/PlateReverb.cpp)
+                        synthmodules/PlateReverb.cpp
+                        synthmodules/Adelay.h
+                        synthmodules/Adelay.cpp)
 
 target_link_libraries(${PROJECT_NAME} PortAudio)
