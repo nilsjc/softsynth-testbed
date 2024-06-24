@@ -1,11 +1,11 @@
-# A software synth test bed
+# My software synth test bed
 In this repository you will find experiments done with the PortAudio sound API.<br>
 PortAudio is a free and cross-platform sound API made by Ross Bencina.<br>
 [Read more about Portaudio here!](https://www.portaudio.com/)<br>
 You will also find experiments with a GUI, made with WXWidgets<br>
 To build the GUI you need to install wxwidgets on your system. I have done it on a Windows machine with mingw compiler. Read more about it down here. Unfortunately, it's not as simple process.<br>
 My plan in the future is to make a kind of modular synth. Meanwhile i will test different sound modules in the main.cpp loop.<br>
-So this repo will be a bit chaotic. You will, however, find ready built programs(built for Windows) in the builtprogram folder.<br>
+This repo will be a bit chaotic. You will, however, find ready built programs(built for Windows) in the builtprogram folder.<br>
 ## Some build instructions
 ### How to build this project with mingw32 and cmake on Windows. It will build both projects "sound" and "gui"<br>
 
@@ -25,13 +25,13 @@ step 4: add this path to windows enviroment variables: **C:\wxWidgets-3.2.5\lib\
 <br>
 Now it should work. BTW, here is a minimum CMAKE project using wxWidgets:
 <br>
-cmake_minimum_required(VERSION 3.29.2)
-project(wxtest)
-SET(wxWidgets_USE_LIBS)
-#for using RichTextCtrl
-FIND_PACKAGE(wxWidgets REQUIRED richtext aui adv html core xml net base) 
-add_executable(${PROJECT_NAME} WIN32 main.cpp)
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+`cmake_minimum_required(VERSION 3.29.2)`<br>
+`project(wxtest)`<br>
+`SET(wxWidgets_USE_LIBS)`<br>
+`#for using RichTextCtrl`<br>
+`FIND_PACKAGE(wxWidgets REQUIRED richtext aui adv html core xml net base)` <br>
+`add_executable(${PROJECT_NAME} WIN32 main.cpp)`<br>
+`TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${wxWidgets_LIBRARIES})`<br>
 <br>
 info about wxwidgets is based on this stackoverflow thread:
 https://stackoverflow.com/questions/63977690/how-wxwidgets-cmake-find-in-window
