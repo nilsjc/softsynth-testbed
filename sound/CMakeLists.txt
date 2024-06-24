@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.29.2)
 
 project(softsynth)
 
-add_subdirectory(external/portaudio)
+add_subdirectory(external)
 
 include_directories(synthmodules)
 
