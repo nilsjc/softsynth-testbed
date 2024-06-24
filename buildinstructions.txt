@@ -1,4 +1,4 @@
-How to build this project with mingw32 and cmake on Windows.
+How to build this project with mingw32 and cmake on Windows. It will build both projects "sound" and "gui"
 
 step 1: create build folder
 
@@ -7,3 +7,33 @@ step 2: cd build
 step 3: cmake -S .. -B . -G "MinGW Makefiles"
 
 step 4: mingw32-make.exe
+
+--------------------------------------------------------------------------------------------------------------
+
+How to install wxWidgets on Windows with MinGW compiler:
+
+step 1: download wxwidgets as an install.exe file
+
+step 2: run the exe. wxwidgets will create a folder on c: root, like: C:/wxWidgets-3.2.5
+
+step 3: build wxwidgets, follow these instructions: https://wiki.wxwidgets.org/Compiling_wxWidgets_with_MinGW
+        Note that these instructions is for MinGW. If you use other compilers the build process is different.
+        This will take about 20 mins on my machine to build.
+
+step 4: add this path to windows enviroment variables: C:\wxWidgets-3.2.5\lib\gcc_dll
+
+Now it should work. BTW, here is a minimum CMAKE project using wxWidgets:
+
+cmake_minimum_required(VERSION 3.29.2)
+project(wxtest)
+SET(wxWidgets_USE_LIBS)
+#for using RichTextCtrl
+FIND_PACKAGE(wxWidgets REQUIRED richtext aui adv html core xml net base) 
+add_executable(${PROJECT_NAME} WIN32 main.cpp)
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+
+this info is based on this stackoverflow thread:
+https://stackoverflow.com/questions/63977690/how-wxwidgets-cmake-find-in-window
+
+--------------------------------------------------------------------------------------------------------------
+
