@@ -8,7 +8,7 @@ My plan in the future is to make a kind of modular synth. Meanwhile i will test 
 So this repo will be a bit chaotic. You will, however, find ready built programs(built for Windows) in the builtprogram folder.<br>
 # History
 2024-06-24<br>
-Restructure of project. Now two folders, "sound" and "gui".
+Restructure of project. Now two folders, "sound" and "gui".<br>
 2024-06-17<br>
 Audio delay with interpolation. Based on Will Pirkles DSP book. This audio delay is very suitable for modulated delay, like chorus and flanger. It should also be possible to extend it for a old style pitch shifter module. The test program process any incoming sound from the PC microphone.<br>
 2024-06-11<br> 
