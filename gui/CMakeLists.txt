@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.29.2)
+project(wxtest)
+SET(wxWidgets_USE_LIBS)
+#for using RichTextCtrl
+FIND_PACKAGE(wxWidgets REQUIRED richtext aui adv html core xml net base) 
+IF(wxWidgets_FOUND)
+    INCLUDE("${wxWidgets_USE_FILE}")
+    add_executable(${PROJECT_NAME} WIN32 main.cpp)
+    TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${wxWidgets_LIBRARIES})
+ELSE(wxWidgets_FOUND)
+    MESSAGE("wxWidgets not found!")
+ENDIF(wxWidgets_FOUND)
