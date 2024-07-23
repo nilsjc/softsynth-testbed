@@ -36,4 +36,7 @@ this info is based on this stackoverflow thread:
 https://stackoverflow.com/questions/63977690/how-wxwidgets-cmake-find-in-window
 
 --------------------------------------------------------------------------------------------------------------
+Notes about git submodule and CMAKE
+https://gist.github.com/scivision/bb1d47a9529e153617414e91ff5390af
+
 
