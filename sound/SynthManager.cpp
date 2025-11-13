@@ -2,12 +2,12 @@
 
 float SynthManager::Manager::OutLeft()
 {
-    return reverb.ResultL;
+    return (waveOsc.finalSample / 2.0f) + (waveOsc2.finalSample / 2.0f);
 }
 
 float SynthManager::Manager::OutRight()
 {
-    return reverb.ResultR;
+    return (waveOsc.finalSample / 2.0f) + (waveOsc2.finalSample / 2.0f);
 }
 
 float *SynthManager::Manager::OutPuts()
@@ -17,11 +17,11 @@ float *SynthManager::Manager::OutPuts()
 
 void SynthManager::Manager::Input(float *in)
 {
-    reverb.Input(in[0]);
+    //waveOsc.frequency = 220.0f; // Example: set frequency to 220 Hz
 }
 
 void SynthManager::Manager::Tick()
 {
-    reverb.Tick();
-    reverb.ModTick();
+    waveOsc.Tick();
+    waveOsc2.Tick();
 }
